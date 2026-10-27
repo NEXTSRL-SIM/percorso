@@ -77,9 +77,40 @@ input[type=search]{border:1px solid var(--ln);border-radius:9px;padding:7px 11px
 .chiave{max-width:420px;background:var(--sf);border:1px solid var(--ln);border-radius:14px;padding:18px}
 .chiave p{font-size:13px;color:var(--ink3);margin-bottom:10px}.chiave form{display:flex;gap:8px}
 .chiave input{flex:1;border:1px solid var(--ln);border-radius:999px;padding:9px 14px;font-size:13px;background:var(--sf);color:var(--ink)}
+.kb{align-items:stretch}
+.area{display:flex;flex-direction:column;gap:8px;padding:10px;border-radius:16px;flex:none;min-height:0}
+.area.t{background:rgba(8,145,178,.07);border:1px solid rgba(8,145,178,.22)}
+.area.c{background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.28)}
+.area .at{display:flex;align-items:center;gap:8px;font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;padding:0 2px}
+.area.t .at{color:var(--ac)}.area.c .at{color:#0E9F6E}
+:root[data-tema="scuro"] .area.c .at{color:#34D399}
+.area .at small{letter-spacing:0;text-transform:none;font-weight:600;color:var(--ink3);font-size:11px}
+.area .at .v{margin-left:auto;letter-spacing:0;text-transform:none;font-size:12px;color:var(--ink);font-weight:800;padding-left:14px}
+.area .cols{display:flex;gap:8px;flex:1;min-height:0;align-items:flex-start}
+.kc.lista{flex-basis:236px;width:236px}
+.lr{display:flex;flex-direction:column;gap:2px;padding:7px 9px;border:0;border-bottom:1px solid var(--ln);background:var(--sf);text-align:left;color:inherit;cursor:pointer;width:100%;flex:none}
+.lr:first-child{border-radius:9px 9px 0 0}.lr:last-child{border-bottom:0;border-radius:0 0 9px 9px}.lr:only-child{border-radius:9px}
+.lr:hover{background:var(--acw)}.lr.sel{background:var(--acw)}
+.lr .a{display:flex;align-items:center;gap:6px}.lr .a b{font-size:11.5px;font-weight:700;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--ink)}
+.lr .a .pv{font-size:10px;font-weight:700;color:var(--ink3)}
+.lr .q{font-size:10.5px;color:var(--ink2);line-height:1.35}
+.cnt{display:inline-flex;align-items:center;gap:3px;font-size:9.5px;font-weight:800;border-radius:5px;padding:0 5px;line-height:15px;background:var(--amw);color:var(--am);white-space:nowrap}
+.mappa .gr.v small{color:var(--ac)}.mappa .gr.p small{color:#0E9F6E}
+.mappa .gr.v .f.on{background:rgba(8,145,178,.08);border-color:rgba(8,145,178,.35)}.mappa .gr.v .f.on span{color:var(--ac)}
+.mappa .gr.p .f.on{background:rgba(16,185,129,.1);border-color:rgba(16,185,129,.4)}.mappa .gr.p .f.on span{color:#0E9F6E}
+.camp{position:relative}
+.camp>button{border:1px solid var(--ac);background:var(--sf);color:var(--ac);border-radius:9px;padding:6px 11px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap}
+.pop{position:absolute;top:36px;left:0;width:330px;background:var(--sf);border:1px solid var(--ln);border-radius:12px;box-shadow:0 18px 40px rgba(16,24,40,.2);padding:12px 14px;z-index:20}
+.pop .ph2{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px}.pop .ph2 b{font-size:12.5px}
+.pop .ph2 a{font-size:11px;color:var(--ac);font-weight:700;cursor:pointer;margin-left:8px}
+.ck{display:flex;align-items:center;gap:9px;padding:7px 2px;border-bottom:1px dashed var(--ln);cursor:pointer;width:100%;background:transparent;border-left:0;border-right:0;border-top:0;text-align:left;color:inherit}
+.ck .b{width:15px;height:15px;border-radius:4px;flex:none;display:inline-flex;align-items:center;justify-content:center;border:1.5px solid var(--ln);font-size:11px;color:#fff}
+.ck.on .b{background:var(--ac);border-color:var(--ac)}
+.ck span.t{flex:1;font-size:12px;font-weight:600}.ck span.t small{display:block;font-size:10.5px;color:var(--ink3);font-weight:500}
+.ck .n{font-size:11px;color:var(--ink3);font-weight:700}
 @media (max-width:800px){body{overflow:auto;height:auto}.mappa{display:none}.kb{flex:none;height:70vh}}
 </style></head><body>
-<div class="ph"><div><h1>Panoramica</h1><p>Dal contatto che entra dai social fino all'impianto acceso. Ogni scheda va da sinistra a destra; sotto il nome, la prossima cosa da fare.</p></div><span class="agg" id="agg">aggiornato --:--</span></div>
+<div class="ph"><div><h1>Panoramica</h1><p>La trattativa, dal contatto al sì, e la commessa, dal sì all'impianto acceso. Ogni scheda va da sinistra a destra; sotto il nome, la prossima cosa da fare.</p></div><span class="agg" id="agg">aggiornato --:--</span></div>
 <div id="corpo" style="flex:1;min-height:0;display:flex;flex-direction:column"><p class="empty" style="text-align:left">Caricamento...</p></div>
 <aside class="drw" id="drw" aria-label="Scheda"></aside>
 <script>
@@ -91,8 +122,8 @@ input[type=search]{border:1px solid var(--ln);border-radius:9px;padding:7px 11px
 var EF='https://pnxhthrheqeucoisifjw.supabase.co/functions/v1/percorso';
 var SL='https://n8n.srv1030489.hstgr.cloud/webhook/scheda-lead';
 var PAG={ 'dashboard':'https://nextsrl-sim.github.io/percorso/','contratti-firmati':'https://nextsrl-sim.github.io/contratti-firmati/','gestione-next':'https://nextsrl-sim.github.io/gestione-installatori/','prepara-contratto-form':'https://nextsrl-sim.github.io/genera-contratto/','avvisi-merce-pronta':'https://nextsrl-sim.github.io/avvisi-merce/'};
-var PASS='',D=null,VISTA='tutto',TIPO='tutti',VEND='tutti',ORIG='social',Q='',SEL=null;
-var FV=[['ingresso','Ingresso dai social','bl','da Facebook e Instagram'],['percorsi','Nei percorsi','vi','messaggi, configuratore, proposta'],['tel1','1ª telefonata','ac','obiettivo: mandare il preventivo'],['preventivo','Preventivo inviato','gr',''],['tel2','2ª telefonata','ac','capire il riscontro'],['definire','Da definire','am','3ª telefonata e oltre'],['accettato','Accettato','gr','passa alle pratiche']];
+var PASS='',D=null,VISTA='tutto',TIPO='tutti',VEND='tutti',Q='',SEL=null,OFF=null,POP=false;
+var FV=[['ingresso','Ingresso','bl','contatti nuovi: cosa chiedono'],['percorsi','Nei percorsi','vi','messaggi, configuratore, proposta'],['tel1','1ª telefonata','ac','obiettivo: mandare il preventivo'],['preventivo','Preventivo inviato','gr',''],['tel2','2ª telefonata','ac','capire il riscontro'],['definire','Da definire','am','3ª telefonata e oltre'],['accettato','Accettato','gr','passa alla commessa']];
 var FP=[['documenti','Documenti','am'],['contratto','Contratto inviato','rd'],['firmato','Firmato','vi'],['acconto','Acconto','vi'],['sopralluogo','Sopralluogo','bl'],['progetto','Progetto studio','bl'],['merce','Merce e consegna','am'],['posa','Posa','gr'],['saldo','Saldo e DiCo','vi'],['connessione','Connessione','bl'],['attivo','Attivo','gr']];
 function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
 function eur(v){if(v==null||v==='')return '';return Math.round(Number(v)).toString().replace(/\B(?=(\d{3})+(?!\d))/g,'.')+' €';}
@@ -127,46 +158,65 @@ function notaV(v){
   case 'preventivo': return ['preventivo inviato '+dt(v.prev_at)+' · da richiamare','gr'];
   case 'tel2': return ['parlato del preventivo · capire il riscontro','ac'];
   case 'definire': return [v.dopo+' telefonate dopo il preventivo · da chiudere','am'];
-  case 'accettato': return ['sì al telefono · parte la richiesta documenti','gr'];
+  case 'accettato': return ['sì al telefono · parte la commessa','gr'];
   case 'scartato': return [v.motivo||String(v.stato||'scartato').replace(/_/g,' '),'ink3'];
   case 'non_accettato': return [v.motivo||'non accettato','ink3'];
  } return ['',''];}
 /* ---- filtri ---- */
-function okP(p){var q=Q.toLowerCase();if(TIPO!=='tutti'){var t=String(p.tipo||'').toLowerCase();if(TIPO==='fv'&&t==='termico')return false;if(TIPO==='te'&&t!=='termico'&&t!=='entrambi')return false;}
+function prodotto(t){t=String(t||'').toLowerCase();if(t==='fotovoltaico'||t==='fv')return 'fv';if(t==='termico')return 'te';if(t==='entrambi')return 'fvte';if(t.indexOf('serram')>=0)return 'se';return 'altro';}
+function okP(p){var q=Q.toLowerCase();if(TIPO!=='tutti'){var t=prodotto(p.tipo);if(TIPO==='fv'&&t!=='fv'&&t!=='fvte')return false;if(TIPO==='te'&&t!=='te'&&t!=='fvte')return false;if(TIPO==='se'&&t!=='se')return false;if(TIPO==='altro'&&t!=='altro')return false;}
  if(VEND!=='tutti'&&String(p.venditore||'').toLowerCase().indexOf(VEND)<0)return false;
  return !q||[p.nome,p.comune,(p.ordini||[]).join(' ')].join(' ').toLowerCase().indexOf(q)>=0;}
-function okV(v){var q=Q.toLowerCase();if(/^<test lead/i.test(String(v.nome||'')))return false;if(ORIG==='social'&&!social(v))return false;if(ORIG==='lista'&&social(v))return false;
+function okV(v){var q=Q.toLowerCase();if(/^<test lead/i.test(String(v.nome||'')))return false;if(OFF&&OFF[v.camp])return false;
  if(VEND!=='tutti'&&String(v.assegnato||'').toLowerCase().indexOf(VEND)<0)return false;
- return !q||[v.nome,v.comune,v.campagna].join(' ').toLowerCase().indexOf(q)>=0;}
+ return !q||[v.nome,v.comune,v.campagna,v.richiesta].join(' ').toLowerCase().indexOf(q)>=0;}
+/* campagne spente: scelta salvata nel browser; la prima volta sono spenti i contatti importati da Squadd (Sipario) */
+function campagne(){var m={};D.vendita.forEach(function(v){if(/^<test lead/i.test(String(v.nome||'')))return;var k=v.camp||'Senza campagna';if(!m[k])m[k]={n:0,squadd:!!v.squadd,social:!!v.social};m[k].n++;});return m;}
+function caricaOff(){try{var x=localStorage.getItem('panoramica_campagne_spente');if(x){OFF=JSON.parse(x);return;}}catch(e){}OFF={};var m=campagne();Object.keys(m).forEach(function(k){if(m[k].squadd)OFF[k]=true;});}
+function salvaOff(){try{localStorage.setItem('panoramica_campagne_spente',JSON.stringify(OFF));}catch(e){}}
 /* ---- schede ---- */
 function cartaP(p){var n=notaP(p);var luogo=[cap(p.comune)||'—',p.kwp?(String(p.kwp).replace('.',',')+' kWp'):''].filter(Boolean).join(' · ');
  return '<button class="mc'+(SEL==='p'+p.id?' sel':'')+'" data-p="'+esc(p.id)+'"><span class="nm">'+esc(p.nome||'(senza nome)')+'</span><span class="r2"><span class="c">'+esc(luogo)+'</span></span><span class="r2">'+tp(p.tipo)+'<span class="e">'+eur(p.eur)+'</span></span><span class="r3" style="color:var(--'+n[1]+')"><span class="dot" style="background:var(--'+n[1]+')"></span>'+esc(n[0])+'</span></button>';}
 function cartaV(v){var n=notaV(v);var luogo=[cap(v.comune)||'',v.prov||''].filter(Boolean).join(' · ')||'—';
- return '<button class="mc'+(SEL==='v'+v.id?' sel':'')+'" data-v="'+esc(v.id)+'"><span class="nm">'+esc(cap(v.nome)||'(senza nome)')+'</span><span class="r2"><span class="c">'+esc(luogo)+(v.campagna?' · '+esc(v.campagna):'')+'</span></span><span class="r2">'+fonte(v.fonte,v)+(v.wa?'<span class="tp" style="background:var(--grw);color:var(--gr)">WA</span>':'')+'<span class="e">'+eur(v.prev_eur)+'</span></span><span class="r3" style="color:var(--'+n[1]+')"><span class="dot" style="background:var(--'+n[1]+')"></span>'+esc(n[0])+'</span></button>';}
+ return '<button class="mc'+(SEL==='v'+v.id?' sel':'')+'" data-v="'+esc(v.id)+'"><span class="nm">'+esc(cap(v.nome)||'(senza nome)')+'</span><span class="r2"><span class="c">'+esc(luogo)+'</span></span><span class="r2">'+fonte(v.fonte,v)+(v.wa?'<span class="tp" style="background:var(--grw);color:var(--gr)">WA</span>':'')+((v.fase==='tel1'||v.fase==='tel2'||v.fase==='definire')&&v.telefonate?'<span class="cnt">☎ '+v.telefonate+'ª</span>':'')+'<span class="e">'+eur(v.prev_eur)+'</span></span><span class="r3" style="color:var(--'+n[1]+')"><span class="dot" style="background:var(--'+n[1]+')"></span>'+esc(n[0])+'</span></button>';}
 function colonna(id,titolo,col,sotto,carte){return '<div class="kc" id="col-'+id+'"><div class="kh"><div class="t"><span class="dot" style="background:var(--'+col+')"></span>'+titolo+'<span class="n">'+carte.length+'</span></div><div class="s">'+(sotto||'&nbsp;')+'</div></div><div class="kb2">'+(carte.length?carte.join(''):'<div class="vuoto">nessuna</div>')+'</div></div>';}
+function rigaV(v){return '<button class="lr'+(SEL==='v'+v.id?' sel':'')+'" data-v="'+esc(v.id)+'"><span class="a"><b>'+esc(cap(v.nome)||'(senza nome)')+'</b><span class="pv">'+esc(v.prov||'')+'</span>'+fonte(v.fonte,v)+'</span><span class="q">'+esc(v.richiesta||(v.stato==='solo_email'?'solo mail, nessun telefono':'nessuna risposta al modulo'))+'</span></button>';}
 function disegna(){
+ if(!OFF)caricaOff();
  var V=D.vendita.filter(okV),P=D.pratiche.filter(okP);
  var perV={},perP={};V.forEach(function(v){(perV[v.fase]=perV[v.fase]||[]).push(v);});P.forEach(function(p){(perP[p.fase]=perP[p.fase]||[]).push(p);});
  var somma=function(L,k){return L.reduce(function(s,x){return s+(Number(x[k])||0);},0);};
- var h='<div class="mappa"><div class="gr v"><small>Vendita · prima del sì</small><div class="ff">'+FV.slice(0,6).map(function(f){return '<button class="f'+(VISTA!=='pratiche'?' on':'')+'" data-vai="'+f[0]+'"><b>'+((perV[f[0]]||[]).length)+'</b><span>'+f[1]+'</span></button>';}).join('')+'</div></div>'
-  +'<span class="si">sì al telefono →</span><div class="gr p"><small>Pratica · dopo il sì (come nell\'area riservata)</small><div class="ff">'+FP.map(function(f){return '<button class="f'+(VISTA!=='vendita'?' on':'')+'" data-vai="'+f[0]+'"><b>'+((perP[f[0]]||[]).length)+'</b><span>'+f[1]+'</span></button>';}).join('')+'</div></div></div>';
- h+='<div class="barra">'+seg('vista',[['tutto','Tutto'],['vendita','Vendita · '+V.filter(function(v){return v.fase!=='scartato'&&v.fase!=='non_accettato';}).length],['pratiche','Pratiche · '+P.length]],VISTA)
-  +seg('tipo',[['tutti','FV e termico'],['fv','Fotovoltaico'],['te','Termico']],TIPO)
+ var tavolo=['preventivo','tel2','definire'].reduce(function(s,k){return s+somma(perV[k]||[],'prev_eur');},0);
+ var attivi=V.filter(function(v){return v.fase!=='scartato'&&v.fase!=='non_accettato';}).length;
+ var m=campagne(),ks=Object.keys(m).sort(function(a,b){return (m[a].squadd-m[b].squadd)||(m[b].n-m[a].n);}),accese=ks.filter(function(k){return !OFF[k];}).length;
+ var h='<div class="mappa"><div class="gr v"><small>Trattativa · '+attivi+' contatti'+(tavolo?' · '+eur(tavolo)+' sul tavolo':'')+'</small><div class="ff">'+FV.slice(0,6).map(function(f){return '<button class="f'+(VISTA!=='commessa'?' on':'')+'" data-vai="'+f[0]+'"><b>'+((perV[f[0]]||[]).length)+'</b><span>'+f[1]+'</span></button>';}).join('')+'</div></div>'
+  +'<span class="si">sì →</span><div class="gr p"><small>Commessa · '+P.length+' · '+eur(somma(P,'eur'))+'</small><div class="ff">'+FP.map(function(f){return '<button class="f'+(VISTA!=='trattativa'?' on':'')+'" data-vai="'+f[0]+'"><b>'+((perP[f[0]]||[]).length)+'</b><span>'+f[1]+'</span></button>';}).join('')+'</div></div></div>';
+ h+='<div class="barra">'+seg('vista',[['tutto','Tutto'],['trattativa','Trattativa · '+attivi],['commessa','Commessa · '+P.length]],VISTA)
+  +seg('tipo',[['tutti','Tutti i prodotti'],['fv','Fotovoltaico'],['te','Termico'],['se','Serramenti'],['altro','Altro']],TIPO)
   +seg('vend',[['tutti','Tutti'],['polotto','Polotto'],['belloni','Belloni']],VEND)
-  +(VISTA!=='pratiche'?seg('orig',[['social','Dai social'],['lista','Altre origini'],['tutte','Tutte']],ORIG):'')
+  +'<span class="camp"><button id="bCamp">Campagne · '+accese+' di '+ks.length+'</button>'+(POP?'<div class="pop" id="pop"><div class="ph2"><b>Campagne nella trattativa</b><span><a data-campall="1">tutte</a><a data-campall="0">nessuna</a></span></div>'
+    +ks.map(function(k){var x=m[k];return '<button class="ck'+(OFF[k]?'':' on')+'" data-camp="'+esc(k)+'"><span class="b">'+(OFF[k]?'':'✓')+'</span><span class="t">'+esc(k)+'<small>'+(x.squadd?'Squadd · Sipario':(x.social?'Facebook / Instagram':'altra origine'))+'</small></span><span class="n">'+x.n+'</span></button>';}).join('')
+    +'<p class="nota" style="margin-top:8px">Una campagna spenta sparisce dalle colonne e dai totali della trattativa. La scelta resta salvata in questo browser.</p></div>':'')+'</span>'
   +'<input type="search" id="cerca" placeholder="Cerca nome, comune, ordine…" value="'+esc(Q)+'"></div>';
  h+='<div class="kb" id="kb">';
- if(VISTA!=='pratiche'){
-  FV.forEach(function(f){var L=perV[f[0]]||[];var s=f[0]==='preventivo'?(eur(somma(L,'prev_eur'))||'&nbsp;'):f[3];h+=colonna(f[0],f[1],f[2],s,L.map(cartaV));});
+ if(VISTA!=='commessa'){
+  h+='<div class="area t"><div class="at">Trattativa<small>dal contatto al sì al telefono</small><span class="v">'+(tavolo?eur(tavolo)+' sul tavolo':'')+'</span></div><div class="cols">';
+  FV.forEach(function(f){var L=perV[f[0]]||[];var tot=somma(L,'prev_eur')>0?eur(somma(L,'prev_eur')):'';var s=(f[0]==='preventivo'||f[0]==='tel2'||f[0]==='definire')&&tot?tot+' · '+f[3]:f[3];
+   if(f[0]==='ingresso'){h+='<div class="kc lista" id="col-ingresso"><div class="kh"><div class="t"><span class="dot" style="background:var(--bl)"></span>Ingresso<span class="n">'+L.length+'</span></div><div class="s">'+f[3]+'</div></div><div class="kb2" style="gap:0">'+(L.length?L.map(rigaV).join(''):'<div class="vuoto">nessuno</div>')+'</div></div>';}
+   else h+=colonna(f[0],f[1],f[2],s||'&nbsp;',L.map(cartaV));});
   var fuori=(perV.scartato||[]).concat(perV.non_accettato||[]);
   h+=colonna('fuori','Fuori dal percorso','ink3',(perV.scartato||[]).length+' scartati · '+(perV.non_accettato||[]).length+' non accettati',fuori.map(cartaV)).replace('class="kc"','class="kc cesta"');
+  h+='</div></div>';
  }
- if(VISTA==='tutto')h+='<div class="kc sep"><span>SÌ AL TELEFONO → PRATICA</span></div>';
- if(VISTA!=='vendita'){FP.forEach(function(f){var L=perP[f[0]]||[];h+=colonna(f[0],f[1],f[2],eur(somma(L,'eur'))||'&nbsp;',L.map(cartaP));});}
+ if(VISTA!=='trattativa'){
+  h+='<div class="area c"><div class="at">Commessa<small>dal sì all\'impianto acceso</small><span class="v">'+eur(somma(P,'eur'))+'</span></div><div class="cols">';
+  FP.forEach(function(f){var L=perP[f[0]]||[];h+=colonna(f[0],f[1],f[2],eur(somma(L,'eur'))||'&nbsp;',L.map(cartaP));});
+  h+='</div></div>';
+ }
  h+='</div>';
  var sx=document.getElementById('kb')?document.getElementById('kb').scrollLeft:null;
  document.getElementById('corpo').innerHTML=h;
- if(sx!=null)document.getElementById('kb').style.scrollBehavior='auto',document.getElementById('kb').scrollLeft=sx,document.getElementById('kb').style.scrollBehavior='';
+ if(sx!=null){var k=document.getElementById('kb');k.style.scrollBehavior='auto';k.scrollLeft=sx;k.style.scrollBehavior='';}
  var c=document.getElementById('cerca');c.oninput=function(){Q=this.value;var pos=this.selectionStart;disegna();var n=document.getElementById('cerca');n.focus();try{n.setSelectionRange(pos,pos)}catch(e){}};
 }
 function seg(nome,op,on){return '<span class="sg">'+op.map(function(o){return '<button data-'+nome+'="'+o[0]+'"'+(o[0]===on?' class="on"':'')+'>'+o[1]+'</button>';}).join('')+'</span>';}
@@ -199,16 +249,19 @@ function apriV(id){var v=D.vendita.filter(function(x){return String(x.id)===Stri
  var d=document.getElementById('drw');
  d.innerHTML='<div class="dh"><div><b>'+esc(cap(v.nome)||'(senza nome)')+'</b><small>'+esc([cap(v.comune),v.prov,v.campagna].filter(Boolean).join(' · '))+'</small></div><button class="x" onclick="chiudiD()" aria-label="Chiudi">×</button></div>'
   +'<div class="db"><div class="passo"><span>'+esc(n[0])+'</span></div>'
-  +'<div>'+riga('Origine',fonte(v.fonte,v)+(v.sorgente?' '+esc(v.sorgente):'')+(v.fonte==='import_squadd'?' · da Squadd':''))+riga('Entrato il',dtl(v.ingresso))+riga('Messaggi WhatsApp',v.wa||'')+riga('Telefonate',v.telefonate||'')+riga('Preventivo',v.prev_at?dtl(v.prev_at)+(v.prev_eur?' · '+eur(v.prev_eur):''):'')+riga('Seguito da',esc(v.assegnato||''))+'</div>'
+  +'<div>'+riga('Campagna',esc(v.camp||''))+riga('Ha chiesto',esc(v.richiesta||''))+riga('Origine',fonte(v.fonte,v)+(v.sorgente?' '+esc(v.sorgente):'')+(v.fonte==='import_squadd'?' · da Squadd':''))+riga('Entrato il',dtl(v.ingresso))+riga('Messaggi WhatsApp',v.wa||'')+riga('Telefonate',v.telefonate||'')+riga('Preventivo',v.prev_at?dtl(v.prev_at)+(v.prev_eur?' · '+eur(v.prev_eur):''):'')+riga('Seguito da',esc(v.assegnato||''))+'</div>'
   +'<div><div class="q2">Il percorso</div><div class="tl">'+tl+'</div></div>'
   +'<div><div class="q2">Vai a</div><div class="tasti"><button class="btn sec" data-lead="'+esc(v.id)+'">Scheda lead</button><button class="btn sec" data-apri="regia" data-cerca="'+esc(v.nome||'')+'">Regia · Contatti</button><button class="btn sec" data-apri="portale-preventivi">Nuovo preventivo</button></div></div></div>';
- d.classList.add('on');document.querySelectorAll('.mc').forEach(function(x){x.classList.toggle('sel',x.getAttribute('data-v')===String(id));});}
+ d.classList.add('on');document.querySelectorAll('.mc,.lr').forEach(function(x){x.classList.toggle('sel',x.getAttribute('data-v')===String(id));});}
 document.addEventListener('click',function(e){var b;
  if(b=e.target.closest('[data-vista]')){VISTA=b.getAttribute('data-vista');disegna();return;}
  if(b=e.target.closest('[data-tipo]')){TIPO=b.getAttribute('data-tipo');disegna();return;}
  if(b=e.target.closest('[data-vend]')){VEND=b.getAttribute('data-vend');disegna();return;}
- if(b=e.target.closest('[data-orig]')){ORIG=b.getAttribute('data-orig');disegna();return;}
- if(b=e.target.closest('[data-vai]')){var k=b.getAttribute('data-vai');var isV=FV.some(function(f){return f[0]===k;});if(isV&&VISTA==='pratiche'||!isV&&VISTA==='vendita'){VISTA='tutto';disegna();}
+ if(e.target.closest('#bCamp')){POP=!POP;disegna();return;}
+ if(b=e.target.closest('[data-camp]')){var k=b.getAttribute('data-camp');if(OFF[k])delete OFF[k];else OFF[k]=true;salvaOff();disegna();return;}
+ if(b=e.target.closest('[data-campall]')){var tutte=b.getAttribute('data-campall')==='1';OFF={};if(!tutte)Object.keys(campagne()).forEach(function(k){OFF[k]=true;});salvaOff();disegna();return;}
+ if(POP&&!e.target.closest('#pop')){POP=false;disegna();}
+ if(b=e.target.closest('[data-vai]')){var k=b.getAttribute('data-vai');var isV=FV.some(function(f){return f[0]===k;});if(isV&&VISTA==='commessa'||!isV&&VISTA==='trattativa'){VISTA='tutto';disegna();}
    var c=document.getElementById('col-'+k);if(c){c.scrollIntoView({inline:'start',block:'nearest'});c.classList.add('lampo');setTimeout(function(){c.classList.remove('lampo');},900);}return;}
  if(b=e.target.closest('[data-p]')){apriP(b.getAttribute('data-p'));return;}
  if(b=e.target.closest('[data-v]')){apriV(b.getAttribute('data-v'));return;}
