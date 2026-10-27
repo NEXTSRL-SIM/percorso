@@ -102,8 +102,8 @@ function gg(t){return t?Math.floor((Date.now()-new Date(t).getTime())/864e5):nul
 function fut(t){return t&&new Date(t).getTime()>Date.now()-864e5;}
 function cap(s){s=String(s||'').toLowerCase();return s.replace(/(^|[\s'’-])([a-zà-ü])/g,function(m,a,b){return a+b.toUpperCase();});}
 function tp(t){t=String(t||'').toLowerCase();if(t==='termico')return '<span class="tp" style="background:var(--rdw);color:var(--rd)">TERM</span>';if(t==='entrambi'||t==='fv+termico')return '<span class="tp" style="background:var(--viw);color:var(--vi)">FV+T</span>';if(t)return '<span class="tp" style="background:var(--amw);color:var(--am)">FV</span>';return '';}
-function fonte(f){f=String(f||'');var m={facebook:['FB','bl'],instagram:['IG','vi'],import_squadd:['LISTA','ink3'],centralino:['TEL','ac']}[f]||[f.toUpperCase().slice(0,5),'ink3'];return '<span class="tp" style="background:var(--sf2);border:1px solid var(--ln);color:var(--'+m[1]+')">'+esc(m[0])+'</span>';}
-function social(v){return v.fonte==='facebook'||v.fonte==='instagram'||v.fonte==='centralino';}
+function fonte(f,v){f=String(f||'');if(v&&v.social&&f!=='instagram')f='facebook';var m={facebook:['FB','bl'],instagram:['IG','vi'],import_squadd:['ALTRO','ink3'],centralino:['TEL','ac']}[f]||[(f||'altro').toUpperCase().slice(0,5),'ink3'];return '<span class="tp" style="background:var(--sf2);border:1px solid var(--ln);color:var(--'+m[1]+')">'+esc(m[0])+'</span>';}
+function social(v){return v.social===true;}
 /* ---- la prossima cosa da fare ---- */
 function notaP(p){var g;
  switch(p.fase){
@@ -121,7 +121,7 @@ function notaP(p){var g;
  } return ['',''];}
 function notaV(v){
  switch(v.fase){
-  case 'ingresso': if(v.stato==='solo_email') return ['solo mail · nessun telefono','am']; if(v.fonte==='import_squadd') return ['dalla lista · mai sentito','ink3']; var g=gg(v.ingresso); if(g==null) return ['percorso da far partire','bl']; return ['entrato '+(g===0?'oggi':(g===1?'ieri':g+' giorni fa'))+' · percorso da far partire',g>1?'rd':'bl'];
+  case 'ingresso': if(v.stato==='solo_email') return ['solo mail · nessun telefono','am']; var g=gg(v.ingresso); if(g==null) return ['mai sentito','bl']; if(g>30) return ['entrato il '+dtl(v.ingresso)+' · mai sentito','rd']; return ['entrato '+(g===0?'oggi':(g===1?'ieri':g+' giorni fa'))+' · percorso da far partire',g>1?'rd':'bl'];
   case 'percorsi': return [v.wa+' messaggi WhatsApp · da chiamare','vi'];
   case 'tel1': return [v.telefonate+(v.telefonate===1?' telefonata':' telefonate')+(v.ultimo?' · ultima '+dt(v.ultimo):'')+' · preventivo da mandare','ac'];
   case 'preventivo': return ['preventivo inviato '+dt(v.prev_at)+' · da richiamare','gr'];
@@ -142,7 +142,7 @@ function okV(v){var q=Q.toLowerCase();if(/^<test lead/i.test(String(v.nome||''))
 function cartaP(p){var n=notaP(p);var luogo=[cap(p.comune)||'—',p.kwp?(String(p.kwp).replace('.',',')+' kWp'):''].filter(Boolean).join(' · ');
  return '<button class="mc'+(SEL==='p'+p.id?' sel':'')+'" data-p="'+esc(p.id)+'"><span class="nm">'+esc(p.nome||'(senza nome)')+'</span><span class="r2"><span class="c">'+esc(luogo)+'</span></span><span class="r2">'+tp(p.tipo)+'<span class="e">'+eur(p.eur)+'</span></span><span class="r3" style="color:var(--'+n[1]+')"><span class="dot" style="background:var(--'+n[1]+')"></span>'+esc(n[0])+'</span></button>';}
 function cartaV(v){var n=notaV(v);var luogo=[cap(v.comune)||'',v.prov||''].filter(Boolean).join(' · ')||'—';
- return '<button class="mc'+(SEL==='v'+v.id?' sel':'')+'" data-v="'+esc(v.id)+'"><span class="nm">'+esc(cap(v.nome)||'(senza nome)')+'</span><span class="r2"><span class="c">'+esc(luogo)+(v.campagna?' · '+esc(v.campagna):'')+'</span></span><span class="r2">'+fonte(v.fonte)+(v.wa?'<span class="tp" style="background:var(--grw);color:var(--gr)">WA</span>':'')+'<span class="e">'+eur(v.prev_eur)+'</span></span><span class="r3" style="color:var(--'+n[1]+')"><span class="dot" style="background:var(--'+n[1]+')"></span>'+esc(n[0])+'</span></button>';}
+ return '<button class="mc'+(SEL==='v'+v.id?' sel':'')+'" data-v="'+esc(v.id)+'"><span class="nm">'+esc(cap(v.nome)||'(senza nome)')+'</span><span class="r2"><span class="c">'+esc(luogo)+(v.campagna?' · '+esc(v.campagna):'')+'</span></span><span class="r2">'+fonte(v.fonte,v)+(v.wa?'<span class="tp" style="background:var(--grw);color:var(--gr)">WA</span>':'')+'<span class="e">'+eur(v.prev_eur)+'</span></span><span class="r3" style="color:var(--'+n[1]+')"><span class="dot" style="background:var(--'+n[1]+')"></span>'+esc(n[0])+'</span></button>';}
 function colonna(id,titolo,col,sotto,carte){return '<div class="kc" id="col-'+id+'"><div class="kh"><div class="t"><span class="dot" style="background:var(--'+col+')"></span>'+titolo+'<span class="n">'+carte.length+'</span></div><div class="s">'+(sotto||'&nbsp;')+'</div></div><div class="kb2">'+(carte.length?carte.join(''):'<div class="vuoto">nessuna</div>')+'</div></div>';}
 function disegna(){
  var V=D.vendita.filter(okV),P=D.pratiche.filter(okP);
@@ -153,7 +153,7 @@ function disegna(){
  h+='<div class="barra">'+seg('vista',[['tutto','Tutto'],['vendita','Vendita · '+V.filter(function(v){return v.fase!=='scartato'&&v.fase!=='non_accettato';}).length],['pratiche','Pratiche · '+P.length]],VISTA)
   +seg('tipo',[['tutti','FV e termico'],['fv','Fotovoltaico'],['te','Termico']],TIPO)
   +seg('vend',[['tutti','Tutti'],['polotto','Polotto'],['belloni','Belloni']],VEND)
-  +(VISTA!=='pratiche'?seg('orig',[['social','Dai social'],['lista','Dalle liste'],['tutte','Tutte le origini']],ORIG):'')
+  +(VISTA!=='pratiche'?seg('orig',[['social','Dai social'],['lista','Altre origini'],['tutte','Tutte']],ORIG):'')
   +'<input type="search" id="cerca" placeholder="Cerca nome, comune, ordine…" value="'+esc(Q)+'"></div>';
  h+='<div class="kb" id="kb">';
  if(VISTA!=='pratiche'){
@@ -199,7 +199,7 @@ function apriV(id){var v=D.vendita.filter(function(x){return String(x.id)===Stri
  var d=document.getElementById('drw');
  d.innerHTML='<div class="dh"><div><b>'+esc(cap(v.nome)||'(senza nome)')+'</b><small>'+esc([cap(v.comune),v.prov,v.campagna].filter(Boolean).join(' · '))+'</small></div><button class="x" onclick="chiudiD()" aria-label="Chiudi">×</button></div>'
   +'<div class="db"><div class="passo"><span>'+esc(n[0])+'</span></div>'
-  +'<div>'+riga('Origine',fonte(v.fonte))+riga('Entrato il',dtl(v.ingresso))+riga('Messaggi WhatsApp',v.wa||'')+riga('Telefonate',v.telefonate||'')+riga('Preventivo',v.prev_at?dtl(v.prev_at)+(v.prev_eur?' · '+eur(v.prev_eur):''):'')+riga('Seguito da',esc(v.assegnato||''))+'</div>'
+  +'<div>'+riga('Origine',fonte(v.fonte,v)+(v.sorgente?' '+esc(v.sorgente):'')+(v.fonte==='import_squadd'?' · da Squadd':''))+riga('Entrato il',dtl(v.ingresso))+riga('Messaggi WhatsApp',v.wa||'')+riga('Telefonate',v.telefonate||'')+riga('Preventivo',v.prev_at?dtl(v.prev_at)+(v.prev_eur?' · '+eur(v.prev_eur):''):'')+riga('Seguito da',esc(v.assegnato||''))+'</div>'
   +'<div><div class="q2">Il percorso</div><div class="tl">'+tl+'</div></div>'
   +'<div><div class="q2">Vai a</div><div class="tasti"><button class="btn sec" data-lead="'+esc(v.id)+'">Scheda lead</button><button class="btn sec" data-apri="regia" data-cerca="'+esc(v.nome||'')+'">Regia · Contatti</button><button class="btn sec" data-apri="portale-preventivi">Nuovo preventivo</button></div></div></div>';
  d.classList.add('on');document.querySelectorAll('.mc').forEach(function(x){x.classList.toggle('sel',x.getAttribute('data-v')===String(id));});}
