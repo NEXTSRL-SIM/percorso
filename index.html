@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>Percorso</title>
+<!DOCTYPE html><html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>Panoramica</title>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#F2F4F7;--sf:#fff;--sf2:#F8FAFC;--ln:#E6E8EE;--ink:#111827;--ink2:#3F4A5A;--ink3:#6B7686;--ac:#0891B2;--acd:#0E7490;--acw:#ECFEFF;--gr:#15803D;--grw:#DCFCE7;--am:#B45309;--amw:#FEF3C7;--bl:#1D4ED8;--blw:#DBEAFE;--rd:#B91C1C;--rdw:#FEE2E2;--vi:#6D4AE0;--viw:#F0ECFE}
@@ -79,7 +79,7 @@ input[type=search]{border:1px solid var(--ln);border-radius:9px;padding:7px 11px
 .chiave input{flex:1;border:1px solid var(--ln);border-radius:999px;padding:9px 14px;font-size:13px;background:var(--sf);color:var(--ink)}
 @media (max-width:800px){body{overflow:auto;height:auto}.mappa{display:none}.kb{flex:none;height:70vh}}
 </style></head><body>
-<div class="ph"><div><h1>Percorso</h1><p>Dal contatto che entra dai social fino all'impianto acceso. Ogni scheda va da sinistra a destra; sotto il nome, la prossima cosa da fare.</p></div><span class="agg" id="agg">aggiornato --:--</span></div>
+<div class="ph"><div><h1>Panoramica</h1><p>Dal contatto che entra dai social fino all'impianto acceso. Ogni scheda va da sinistra a destra; sotto il nome, la prossima cosa da fare.</p></div><span class="agg" id="agg">aggiornato --:--</span></div>
 <div id="corpo" style="flex:1;min-height:0;display:flex;flex-direction:column"><p class="empty" style="text-align:left">Caricamento...</p></div>
 <aside class="drw" id="drw" aria-label="Scheda"></aside>
 <script>
@@ -216,7 +216,7 @@ document.addEventListener('click',function(e){var b;
  if(b=e.target.closest('[data-lead]')){window.open(SL+'?id='+encodeURIComponent(b.getAttribute('data-lead'))+'&k='+encodeURIComponent(PASS),'_blank','noopener');return;}
 });
 document.addEventListener('keydown',function(e){if(e.key==='Escape')chiudiD();});
-function chiediPass(msg){document.getElementById('corpo').innerHTML='<div class="chiave"><p>'+(msg||'Scrivi la password della regia per aprire il percorso.')+'</p><form id="fp"><input type="password" id="ip" autocomplete="current-password" placeholder="password"><button class="btn">Entra</button></form></div>';
+function chiediPass(msg){document.getElementById('corpo').innerHTML='<div class="chiave"><p>'+(msg||'Scrivi la password della regia per aprire la panoramica.')+'</p><form id="fp"><input type="password" id="ip" autocomplete="current-password" placeholder="password"><button class="btn">Entra</button></form></div>';
  document.getElementById('fp').onsubmit=function(e){e.preventDefault();PASS=document.getElementById('ip').value.trim();try{sessionStorage.setItem('regia_pass',PASS)}catch(x){}carica();};}
 async function carica(){if(!PASS){chiediPass();return;}
  try{var r=await fetch(EF+'?t='+encodeURIComponent(PASS));var d=await r.json();
